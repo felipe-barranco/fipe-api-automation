@@ -1,6 +1,5 @@
 import sys
-import requests
-from fipe_api import get_brand
+from fipe_api import get_brands
 
 def main():
     user_option = int(input("""
@@ -51,11 +50,41 @@ Select an option: """
 
 
 def search_vehicle():
-    brand = select_brand()
+    vehicle_type = select_type()
+    vehicle_brand = select_brand(vehicle_type)
+    #vehicle_model = select_model(vehicle_brand)
 
 
+def select_type():
+    while True:
+        print("""
+        ========================================
+        VEHICLE SEARCH
+        ========================================
+        
+        Select a vehicle type:
+        
+        1. Cars
+        2. Motorcycles
+        3. Trucks
+            """)
+        try:
+            user_type = int(input("Select a vehicle type: "))
+        except ValueError:
+            print("\nInvalid option. Please select a valid brand.")
+        except EOFError:
+            sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
+        else:
+            if user_type in [1, 2, 3]:
+                if user_type == 1:
+                    return "cars"
+                elif user_type == 2:
+                    return "motorcycles"
+                elif user_type == 3:
+                    return "trucks"
 
-def select_brand():
+
+def select_brand(type):
     print("""
 ========================================
 VEHICLE SEARCH
@@ -64,7 +93,11 @@ VEHICLE SEARCH
 Select a vehicle brand:
 """)
     
-    brands = get_brand()
+    brands_data = get_brands(type)
+    
+    brands = []
+    for i in range(len(brands_data)):
+        brands.append(brands_data[i]['name'])
 
     while True:
         try:
@@ -83,7 +116,8 @@ Select a vehicle brand:
                 print("\nInvalid option. Please select a valid brand.")
 
 
-
+def select_model(brand):
+    ...
 
 if __name__ == "__main__":
     main()
