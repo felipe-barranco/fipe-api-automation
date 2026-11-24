@@ -43,7 +43,7 @@ Select an option: """
             except ValueError:
                 print("\nInvalid option. Please select a valid option to continue.")
             except EOFError:
-                print("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
+                sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
             else:
                 if user_input in [1, 2]:
                     return user_input
@@ -51,7 +51,38 @@ Select an option: """
 
 
 def search_vehicle():
-    ...
+    brand = select_brand()
+
+
+
+def select_brand():
+    print("""
+========================================
+VEHICLE SEARCH
+========================================
+
+Select a vehicle brand:
+""")
+    
+    brands = get_brand()
+
+    while True:
+        try:
+            for i in range(len(brands)):
+                    print(f"{i + 1}. {brands[i]}")
+            user_brand = int(input("\nSelect a brand: "))
+        except ValueError:
+            print("Invalid option. Please select a valid brand.")
+        except EOFError:
+            sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
+        else:
+            if 1 <= user_brand <= len(brands):
+                print(f"\nYou selected: {brands[user_brand - 1]}")
+                return brands[user_brand - 1]
+            else: 
+                print("\nInvalid option. Please select a valid brand.")
+
+
 
 
 if __name__ == "__main__":
