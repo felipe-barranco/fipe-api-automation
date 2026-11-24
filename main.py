@@ -1,5 +1,5 @@
 import sys
-from fipe_api import get_brands, get_models
+from fipe_api import get_brands, get_models, get_years
 
 def main():
     user_option = int(input("""
@@ -144,7 +144,33 @@ Select a vehicle model:
 
 
 def select_year(vehicleType, brandId, modelId):
-    ...
+    print("""
+========================================
+VEHICLE SEARCH
+========================================
+
+Select a vehicle year:
+    """)
+    
+    years_data = get_years(vehicleType, brandId, modelId)
+    print(years_data)
+
+    while True:
+        for i in range(len(years_data)):
+            print(f"{i + 1}. {years_data[i]['name']}")
+
+        try:
+            user_year = int(input("\nSelect a year: "))
+        except ValueError:
+            print("\nInvalid option. Please select a valid brand.")
+        except EOFError:
+            sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
+        else:
+            if 1 <= user_year <= len(years_data):
+                print(f"\nYou selected: {years_data[user_year - 1]['name']}")
+                return years_data[user_year - 1]['code']
+            else:
+                print("\nInvalid option. Please select a valid brand.")
 
 
 if __name__ == "__main__":
