@@ -5,4 +5,10 @@ def get_brand():
     response = requests.get(API_URL)
     data = response.json()
 
+    brands = []
+    for i in range(len(data)):
+        brands.append(data[i]['name'])
+    return brands
+
+
 get_brand()
