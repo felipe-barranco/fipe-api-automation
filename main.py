@@ -51,7 +51,7 @@ Select an option: """
 
 
 def search_vehicle():
-
+    ...
 
 
 if __name__ == "__main__":
