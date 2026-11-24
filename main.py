@@ -54,6 +54,7 @@ def search_vehicle():
     brandId = select_brand(vehicleType)
     modelId = select_model(vehicleType, brandId)
     yearId = select_year(vehicleType, brandId, modelId)
+    select_vehicle(vehicleType, brandId, modelId, yearId)
 
 
 def select_type():
@@ -171,6 +172,10 @@ Select a vehicle year:
                 return years_data[user_year - 1]['code']
             else:
                 print("\nInvalid option. Please select a valid brand.")
+
+
+def select_vehicle(vehicleType, brandId, modelId, yearId):
+    ...
 
 
 if __name__ == "__main__":
