@@ -50,9 +50,10 @@ Select an option: """
 
 
 def search_vehicle():
-    vehicle_type = select_type()
-    vehicle_brand = select_brand(vehicle_type)
-    vehicle_model = select_model(vehicle_type, vehicle_brand)
+    vehicleType = select_type()
+    brandId = select_brand(vehicleType)
+    modelId = select_model(vehicleType, brandId)
+    yearId = select_year(vehicleType, brandId, modelId)
 
 
 def select_type():
@@ -84,7 +85,7 @@ Select a vehicle type:
                     return "trucks"
 
 
-def select_brand(type):
+def select_brand(vehicleType):
     print("""
 ========================================
 VEHICLE SEARCH
@@ -93,7 +94,7 @@ VEHICLE SEARCH
 Select a vehicle brand:
 """)
     
-    brands_data = get_brands(type)
+    brands_data = get_brands(vehicleType)
 
     while True:
         for i in range(len(brands_data)):
@@ -113,7 +114,7 @@ Select a vehicle brand:
                 print("\nInvalid option. Please select a valid brand.")
 
 
-def select_model(type, brand_code):
+def select_model(vehicleType, brandId):
     print("""
 ========================================
 VEHICLE SEARCH
@@ -122,7 +123,7 @@ VEHICLE SEARCH
 Select a vehicle model:
     """)
 
-    models_data = get_models(type, brand_code)
+    models_data = get_models(vehicleType, brandId)
 
     while True:
         for i in range(len(models_data)):
@@ -140,6 +141,10 @@ Select a vehicle model:
                 return models_data[user_model - 1]['code']
             else: 
                 print("\nInvalid option. Please select a valid brand.")
+
+
+def select_year(vehicleType, brandId, modelId):
+    ...
 
 
 if __name__ == "__main__":
