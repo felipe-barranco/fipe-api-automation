@@ -1,10 +1,10 @@
 import sys
-from fipe_api import get_brands, get_models, get_years
+from fipe_api import get_brands, get_models, get_years, get_info
 
 def main():
     user_option = int(input("""
 ========================================
-FIPE VEHICLE LOOKUP
+          FIPE VEHICLE LOOKUP
 ========================================
         
 Welcome to FIPE Vehicle Lookup!
@@ -29,7 +29,7 @@ def get_valid_option(user_input):
             try:
                 user_input = int(input("""
 ========================================
-FIPE VEHICLE LOOKUP
+          FIPE VEHICLE LOOKUP
 ========================================
         
 Welcome to FIPE Vehicle Lookup!
@@ -61,7 +61,7 @@ def select_type():
     while True:
         print("""
 ========================================
-VEHICLE SEARCH
+              VEHICLE SEARCH
 ========================================
         
 Select a vehicle type:
@@ -89,7 +89,7 @@ Select a vehicle type:
 def select_brand(vehicleType):
     print("""
 ========================================
-VEHICLE SEARCH
+              VEHICLE SEARCH
 ========================================
 
 Select a vehicle brand:
@@ -118,7 +118,7 @@ Select a vehicle brand:
 def select_model(vehicleType, brandId):
     print("""
 ========================================
-VEHICLE SEARCH
+              VEHICLE SEARCH
 ========================================
 
 Select a vehicle model:
@@ -147,14 +147,13 @@ Select a vehicle model:
 def select_year(vehicleType, brandId, modelId):
     print("""
 ========================================
-VEHICLE SEARCH
+              VEHICLE SEARCH
 ========================================
 
 Select a vehicle year:
     """)
     
     years_data = get_years(vehicleType, brandId, modelId)
-    print(years_data)
 
     while True:
         for i in range(len(years_data)):
@@ -163,7 +162,7 @@ Select a vehicle year:
         try:
             user_year = int(input("\nSelect a year: "))
         except ValueError:
-            print("\nInvalid option. Please select a valid brand.")
+            print("\nInvalid option. Please select a valid year.")
         except EOFError:
             sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
         else:
@@ -175,7 +174,27 @@ Select a vehicle year:
 
 
 def select_vehicle(vehicleType, brandId, modelId, yearId):
-    ...
+    info_data = get_info(vehicleType, brandId, modelId, yearId)
+    
+    print(f"""
+========================================
+          FIPE VEHICLE LOOKUP
+========================================
+
+Vehicle information:
+
+Brand:       {info_data['brand']}
+Model:       {info_data['model']}
+Year:        {info_data['modelYear']}
+Fuel:        {info_data['fuel']}
+Fuel Type:   {info_data['fuelAcronym']}
+
+FIPE Code:   {info_data['codeFipe']}
+
+----------------------------------------
+FIPE PRICE:  {info_data['price']}
+========================================
+    """)
 
 
 if __name__ == "__main__":
