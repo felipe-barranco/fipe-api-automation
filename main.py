@@ -1,5 +1,5 @@
 import sys
-from fipe_api import get_brands
+from fipe_api import get_brands, get_models
 
 def main():
     user_option = int(input("""
@@ -52,21 +52,21 @@ Select an option: """
 def search_vehicle():
     vehicle_type = select_type()
     vehicle_brand = select_brand(vehicle_type)
-    #vehicle_model = select_model(vehicle_brand)
+    vehicle_model = select_model(vehicle_type, vehicle_brand)
 
 
 def select_type():
     while True:
         print("""
-        ========================================
-        VEHICLE SEARCH
-        ========================================
+========================================
+VEHICLE SEARCH
+========================================
         
-        Select a vehicle type:
+Select a vehicle type:
         
-        1. Cars
-        2. Motorcycles
-        3. Trucks
+1. Cars
+2. Motorcycles
+3. Trucks
             """)
         try:
             user_type = int(input("Select a vehicle type: "))
@@ -94,30 +94,27 @@ Select a vehicle brand:
 """)
     
     brands_data = get_brands(type)
-    
-    brands = []
-    for i in range(len(brands_data)):
-        brands.append(brands_data[i]['name'])
 
     while True:
         try:
-            for i in range(len(brands)):
-                    print(f"{i + 1}. {brands[i]}")
+            for i in range(len(brands_data)):
+                    print(f"{i + 1}. {brands_data[i]["name"]}")
             user_brand = int(input("\nSelect a brand: "))
         except ValueError:
             print("Invalid option. Please select a valid brand.")
         except EOFError:
             sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
         else:
-            if 1 <= user_brand <= len(brands):
-                print(f"\nYou selected: {brands[user_brand - 1]}")
-                return brands[user_brand - 1]
+            if 1 <= user_brand <= len(brands_data):
+                print(f"\nYou selected: {brands_data[user_brand - 1]['name']}")
+                return brands_data[user_brand - 1]['code']
             else: 
                 print("\nInvalid option. Please select a valid brand.")
 
 
-def select_model(brand):
-    ...
+def select_model(type, brand_code):
+    models_data = get_models(type, brand_code)
+
 
 if __name__ == "__main__":
     main()
