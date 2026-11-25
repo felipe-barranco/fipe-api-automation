@@ -25,7 +25,8 @@ Welcome to FIPE Vehicle Lookup!
                 if user_option == 1:
                     search_vehicle()
                 elif user_option == 2:
-                    sys.exit("Thank you for using FIPE Vehicle Lookup. Goodbye!")
+                    print("Thank you for using FIPE Vehicle Lookup. Goodbye!")
+                    return
             else:
                 print("Invalid option. Please select a valid option.")
 
