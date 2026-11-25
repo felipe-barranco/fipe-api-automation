@@ -31,11 +31,11 @@ Welcome to FIPE Vehicle Lookup!
 
 
 def search_vehicle():
-    vehicleType = select_type()
-    brandId = select_brand(vehicleType)
-    modelId = select_model(vehicleType, brandId)
-    yearId = select_year(vehicleType, brandId, modelId)
-    select_vehicle(vehicleType, brandId, modelId, yearId)
+    vehicle_type = select_type()
+    brand_id = select_brand(vehicle_type)
+    model_id = select_model(vehicle_type, brand_id)
+    year_id = select_year(vehicle_type, brand_id, model_id)
+    select_vehicle(vehicle_type, brand_id, model_id, year_id)
 
 
 def select_type():
@@ -69,8 +69,8 @@ Select a vehicle type:
                 print("Invalid option. Please select a valid vehicle type.")
 
 
-def select_brand(vehicleType):    
-    brands_data = get_brands(vehicleType)
+def select_brand(vehicle_type):    
+    brands_data = get_brands(vehicle_type)
 
     print("""
 ========================================
@@ -98,8 +98,8 @@ Select a vehicle brand:
                 print("Invalid option. Please select a valid vehicle brand.")
 
 
-def select_model(vehicleType, brandId):
-    models_data = get_models(vehicleType, brandId)
+def select_model(vehicle_type, brand_id):
+    models_data = get_models(vehicle_type, brand_id)
 
     print("""
 ========================================
@@ -127,8 +127,8 @@ Select a vehicle model:
                 print("Invalid option. Please select a valid vehicle model.")
 
 
-def select_year(vehicleType, brandId, modelId):
-    years_data = get_years(vehicleType, brandId, modelId)
+def select_year(vehicle_type, brand_id, model_id):
+    years_data = get_years(vehicle_type, brand_id, model_id)
 
     print("""
 ========================================
@@ -156,8 +156,8 @@ Select a vehicle year:
                 print("Invalid option. Please select a valid vehicle year.")
 
 
-def select_vehicle(vehicleType, brandId, modelId, yearId):
-    info_data = get_info(vehicleType, brandId, modelId, yearId)
+def select_vehicle(vehicle_type, brand_id, model_id, year_id):
+    info_data = get_info(vehicle_type, brand_id, model_id, year_id)
     
     print(f"""
 ========================================
