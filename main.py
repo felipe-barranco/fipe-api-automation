@@ -2,7 +2,8 @@ import sys
 from fipe_api import get_brands, get_models, get_years, get_info
 
 def main():
-    user_option = int(input("""
+    while True:
+        print("""
 ========================================
           FIPE VEHICLE LOOKUP
 ========================================
@@ -11,14 +12,19 @@ Welcome to FIPE Vehicle Lookup!
         
 1. Search for a vehicle
 2. Exit
-        
-Select an option: """
-    ))
-
-    if get_valid_option(user_option) == 1:
-        search_vehicle()
-    else:
-        sys.exit("\nThank you for using FIPE Vehicle Lookup. Goodbye!")
+        """)
+        try:
+            user_option = int(input("Select a vehicle type: "))
+        except ValueError:
+            print("\nInvalid option. Please select a valid option to continue.")
+        except EOFError:
+            sys.exit("\nInput interrupted. Exiting FIPE Vehicle Lookup.")
+        else:
+            if get_valid_option(user_option) == 1:
+                search_vehicle()
+                break
+            else:
+                sys.exit("\nThank you for using FIPE Vehicle Lookup. Goodbye!")
 
 
 def get_valid_option(user_input):
