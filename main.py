@@ -92,8 +92,8 @@ Select a vehicle brand:
             sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
         else:
             if 1 <= user_brand <= len(brands_data):
-                print(f"\nYou selected: {brands_data[user_brand - 1]['name']}")
-                return brands_data[user_brand - 1]['code']
+                print(f"\nYou selected: {brands_data[user_brand - 1]["name"]}")
+                return brands_data[user_brand - 1]["code"]
             else:
                 print("Invalid option. Please select a valid vehicle brand.")
 
@@ -110,7 +110,7 @@ Select a vehicle model:
     """)
          
     for i in range(len(models_data)):
-        print(f"{i + 1}. {models_data[i]['name']}")
+        print(f"{i + 1}. {models_data[i]["name"]}")
 
     while True:
         try:
@@ -121,8 +121,8 @@ Select a vehicle model:
             sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
         else:
             if 1 <= user_model <= len(models_data):
-                print(f"\nYou selected: {models_data[user_model - 1]['name']}")
-                return models_data[user_model - 1]['code']
+                print(f"\nYou selected: {models_data[user_model - 1]["name"]}")
+                return models_data[user_model - 1]["code"]
             else: 
                 print("Invalid option. Please select a valid vehicle model.")
 
@@ -139,7 +139,7 @@ Select a vehicle year:
 """)
           
     for i in range(len(years_data)):
-        print(f"{i + 1}. {years_data[i]['name']}")
+        print(f"{i + 1}. {years_data[i]["name"]}")
 
     while True:
         try:
@@ -150,8 +150,8 @@ Select a vehicle year:
             sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
         else:
             if 1 <= user_year <= len(years_data):
-                print(f"\nYou selected: {years_data[user_year - 1]['name']}")
-                return years_data[user_year - 1]['code']
+                print(f"\nYou selected: {years_data[user_year - 1]["name"]}")
+                return years_data[user_year - 1]["code"]
             else:
                 print("Invalid option. Please select a valid vehicle year.")
 
@@ -166,16 +166,16 @@ def select_vehicle(vehicle_type, brand_id, model_id, year_id):
 
 Vehicle information:
 
-Brand:       {info_data['brand']}
-Model:       {info_data['model']}
-Year:        {info_data['modelYear']}
-Fuel:        {info_data['fuel']}
-Fuel Type:   {info_data['fuelAcronym']}
+Brand:       {info_data["brand"]}
+Model:       {info_data["model"]}
+Year:        {info_data["modelYear"]}
+Fuel:        {info_data["fuel"]}
+Fuel Type:   {info_data["fuelAcronym"]}
 
-FIPE Code:   {info_data['codeFipe']}
+FIPE Code:   {info_data["codeFipe"]}
 
 ----------------------------------------
-FIPE PRICE:  {info_data['price']}
+FIPE PRICE:  {info_data["price"]}
 ========================================""")
 
 
