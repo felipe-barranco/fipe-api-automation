@@ -184,16 +184,16 @@ def select_vehicle(vehicle_type, brand_id, model_id, year_id):
 
 Vehicle information:
 
-Brand:       {info_data["brand"]}
-Model:       {info_data["model"]}
-Year:        {info_data["modelYear"]}
-Fuel:        {info_data["fuel"]}
-Fuel Acronym:{info_data["fuelAcronym"]}
+Brand:        {info_data["brand"]}
+Model:        {info_data["model"]}
+Year:         {info_data["modelYear"]}
+Fuel:         {info_data["fuel"]}
+Fuel Acronym: {info_data["fuelAcronym"]}
 
-FIPE Code:   {info_data["codeFipe"]}
+FIPE Code:    {info_data["codeFipe"]}
 
 ----------------------------------------
-FIPE PRICE:  {info_data["price"]}
+FIPE PRICE:   {info_data["price"]}
 ========================================""")
 
 
