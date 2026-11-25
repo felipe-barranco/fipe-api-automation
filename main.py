@@ -188,7 +188,7 @@ Brand:       {info_data["brand"]}
 Model:       {info_data["model"]}
 Year:        {info_data["modelYear"]}
 Fuel:        {info_data["fuel"]}
-Fuel Acronym:   {info_data["fuelAcronym"]}
+Fuel Acronym:{info_data["fuelAcronym"]}
 
 FIPE Code:   {info_data["codeFipe"]}
 
