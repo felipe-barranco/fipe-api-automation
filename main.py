@@ -38,6 +38,18 @@ def search_vehicle():
     select_vehicle(vehicle_type, brand_id, model_id, year_id)
 
 
+def get_user_input(info):
+    while True:
+        try:
+            user_input = int(input(f"\nSelect a {info}: "))
+        except ValueError:
+            print("Invalid input. Please enter a number.")
+        except EOFError:
+            sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
+        else:
+            return user_input
+
+
 def select_type():
     print("""
 ========================================
@@ -51,25 +63,23 @@ Select a vehicle type:
 3. Trucks""")
 
     while True:
-        try:
-            user_type = int(input("\nSelect a type: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-        except EOFError:
-            sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
+        user_input = get_user_input("type")
+
+        if user_input in [1, 2, 3]:
+            if user_input == 1:
+                print("\nYou selected: Cars")
+                return "cars"
+            elif user_input == 2:
+                print("\nYou selected: Motorcycles")
+                return "motorcycles"
+            elif user_input == 3:
+                print("\nYou selected: Trucks")
+                return "trucks"
         else:
-            if user_type in [1, 2, 3]:
-                if user_type == 1:
-                    return "cars"
-                elif user_type == 2:
-                    return "motorcycles"
-                elif user_type == 3:
-                    return "trucks"
-            else:
-                print("Invalid option. Please select a valid vehicle type.")
+            print("Invalid option. Please select a valid vehicle type.")
 
 
-def select_brand(vehicle_type):    
+def select_brand(vehicle_type):
     brands_data = get_brands(vehicle_type)
 
     print("""
@@ -84,18 +94,13 @@ Select a vehicle brand:
         print(f"{i + 1}. {brands_data[i]["name"]}")
 
     while True:
-        try:
-            user_brand = int(input("\nSelect a brand: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-        except EOFError:
-            sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
+        user_input = get_user_input("brand")
+
+        if 1 <= user_input <= len(brands_data):
+            print(f"\nYou selected: {brands_data[user_input - 1]["name"]}")
+            return brands_data[user_input - 1]["code"]
         else:
-            if 1 <= user_brand <= len(brands_data):
-                print(f"\nYou selected: {brands_data[user_brand - 1]["name"]}")
-                return brands_data[user_brand - 1]["code"]
-            else:
-                print("Invalid option. Please select a valid vehicle brand.")
+            print("Invalid option. Please select a valid vehicle brand.")
 
 
 def select_model(vehicle_type, brand_id):
@@ -113,18 +118,13 @@ Select a vehicle model:
         print(f"{i + 1}. {models_data[i]["name"]}")
 
     while True:
-        try:
-            user_model = int(input("\nSelect a model: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-        except EOFError:
-            sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
-        else:
-            if 1 <= user_model <= len(models_data):
-                print(f"\nYou selected: {models_data[user_model - 1]["name"]}")
-                return models_data[user_model - 1]["code"]
-            else: 
-                print("Invalid option. Please select a valid vehicle model.")
+        user_input = get_user_input("model")
+
+        if 1 <= user_input <= len(models_data):
+            print(f"\nYou selected: {models_data[user_input - 1]["name"]}")
+            return models_data[user_input - 1]["code"]
+        else: 
+            print("Invalid option. Please select a valid vehicle model.")
 
 
 def select_year(vehicle_type, brand_id, model_id):
@@ -142,18 +142,13 @@ Select a vehicle year:
         print(f"{i + 1}. {years_data[i]["name"]}")
 
     while True:
-        try:
-            user_year = int(input("\nSelect a year: "))
-        except ValueError:
-            print("Invalid input. Please enter a number.")
-        except EOFError:
-            sys.exit("Input interrupted. Exiting FIPE Vehicle Lookup.")
+        user_input = get_user_input("year")
+        
+        if 1 <= user_input <= len(years_data):
+            print(f"\nYou selected: {years_data[user_input - 1]["name"]}")
+            return years_data[user_input - 1]["code"]
         else:
-            if 1 <= user_year <= len(years_data):
-                print(f"\nYou selected: {years_data[user_year - 1]["name"]}")
-                return years_data[user_year - 1]["code"]
-            else:
-                print("Invalid option. Please select a valid vehicle year.")
+            print("Invalid option. Please select a valid vehicle year.")
 
 
 def select_vehicle(vehicle_type, brand_id, model_id, year_id):
