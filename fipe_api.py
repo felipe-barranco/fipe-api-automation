@@ -5,7 +5,7 @@ def validate_response(response):
 
 
 def get_data(API_URL):
-    response = requests.get(API_URL)
+    response = requests.get(API_URL, timeout=10)
     validate_response(response)
     return response.json()
 
