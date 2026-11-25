@@ -2,17 +2,16 @@ import sys
 from fipe_api import get_brands, get_models, get_years, get_info
 
 def main():
-    print("""
+    while True:
+        print("""
 ========================================
             FIPE VEHICLE LOOKUP
 ========================================
-        
+                
 Welcome to FIPE Vehicle Lookup!
-        
+                
 1. Search for a vehicle
 2. Exit""")
-
-    while True:
         try:
             user_option = int(input("\nSelect an option: "))
         except ValueError:
@@ -23,7 +22,6 @@ Welcome to FIPE Vehicle Lookup!
             if user_option in [1, 2]:
                 if user_option == 1:
                     search_vehicle()
-                    break
                 elif user_option == 2:
                     sys.exit("Thank you for using FIPE Vehicle Lookup. Goodbye!")
             else:
