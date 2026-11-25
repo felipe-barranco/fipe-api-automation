@@ -7,7 +7,7 @@ def main():
     while True:
         print("""
 ========================================
-            FIPE VEHICLE LOOKUP
+          FIPE VEHICLE LOOKUP
 ========================================
                 
 Welcome to FIPE Vehicle Lookup!
