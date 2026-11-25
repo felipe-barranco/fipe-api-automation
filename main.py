@@ -1,5 +1,7 @@
 import sys
+import requests
 from fipe_api import get_brands, get_models, get_years, get_info
+
 
 def main():
     while True:
@@ -178,4 +180,9 @@ FIPE PRICE:  {info_data["price"]}
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except requests.exceptions.RequestException:
+        print("\nATTENTION!")
+        print("Unable to retrieve vehicle information.")
+        print("Please try again later.")
