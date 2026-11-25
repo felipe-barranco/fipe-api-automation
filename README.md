@@ -1,8 +1,21 @@
 # FIPE Vehicle Lookup
 
-A Python command-line application for looking up vehicle information and reference prices through the FIPE API.
+A Python command-line application for looking up Brazilian vehicle reference prices from the FIPE Table.
 
-The application guides the user through the selection of a vehicle type, brand, model, and model year. It then displays the information returned by the API for the selected vehicle.
+The application guides the user through the selection of a vehicle type, brand, model, and model year, then displays the vehicle details and FIPE price returned by the API.
+
+## What Is the FIPE Table?
+
+The **FIPE Table** (*Tabela FIPE*) is published monthly by the **Fundação Instituto de Pesquisas Econômicas (FIPE)**, a Brazilian research foundation linked to the University of São Paulo (USP). It reports the average prices of new and used vehicles in the Brazilian national market, based on prices observed across the country.
+
+In Brazil, the FIPE Table is widely used as a reference for:
+
+- Buying and selling used vehicles.
+- Setting the insured value of a vehicle in auto insurance policies.
+- Calculating vehicle taxes (IPVA) in several states.
+- Evaluating vehicles for financing and trade-ins.
+
+The FIPE price is an **average reference value**, not a fixed or official sale price. The actual price of a specific vehicle can vary according to its condition, mileage, location, and accessories. Because the table is updated every month, the prices returned by this application reflect the latest reference month provided by the API. All prices are in Brazilian reais (R$).
 
 ## Features
 
@@ -18,9 +31,9 @@ The application guides the user through the selection of a vehicle type, brand, 
 
 ## Technologies
 
-- **Python 3.12+** — application language.
-- **Requests** — sends HTTP requests to the FIPE API.
-- **FIPE API** — provides the vehicle data used by the application.
+- **Python 3.12+**: application language.
+- **Requests**: sends HTTP requests to the FIPE API.
+- **FIPE API (Parallelum)**: provides the vehicle data used by the application.
 
 ## Project Structure
 
@@ -46,6 +59,8 @@ Check your Python version with:
 ```bash
 python --version
 ```
+
+> **Note:** On many macOS and Linux systems, the Python 3 command is `python3` instead of `python`. If `python --version` fails or shows Python 2, use `python3` in all commands below.
 
 ## Installation and Setup
 
@@ -132,20 +147,20 @@ Example of the result displayed after a completed search:
 
 Vehicle information:
 
-Brand:       Honda
-Model:       Civic Sedan EXL 2.0 Flex 16V Aut.4p
-Year:        2020
-Fuel:        Flex
-Fuel Type:   F
+Brand:         Honda
+Model:         Civic Sedan EXL 2.0 Flex 16V Aut.4p
+Year:          2020
+Fuel:          Flex
+Fuel Acronym:  F
 
-FIPE Code:   014090-2
+FIPE Code:     014090-2
 
 ----------------------------------------
-FIPE PRICE:  R$ 119.329,00
+FIPE PRICE:    R$ 119.329,00
 ========================================
 ```
 
-The example illustrates the application output format and uses vehicle data from a response shown in the [FIPE API documentation](https://fipe.api.br/docs/comece-aqui). The FIPE price may change according to the reference month returned by the API.
+This example illustrates the output format only. The price shown is not current: FIPE prices change every month, so your results will differ.
 
 ## Exiting the Application
 
@@ -155,7 +170,9 @@ The example illustrates the application output format and uses vehicle data from
 
 ## API Integration
 
-The application sends HTTP GET requests to the following API base URL:
+The application uses the free FIPE API maintained by Parallelum, which provides FIPE Table data in JSON format. Documentation: <https://deividfortuna.github.io/fipe/v2/>
+
+All requests are HTTP GET requests sent to this base URL:
 
 ```text
 https://fipe.parallelum.com.br/api/v2
@@ -170,22 +187,30 @@ The API communication functions are defined in `fipe_api.py`:
 | `get_years(vehicle_type, brand_id, model_id)` | Retrieves the years available for a model. | `/{vehicle_type}/brands/{brand_id}/models/{model_id}/years` |
 | `get_info(vehicle_type, brand_id, model_id, year_id)` | Retrieves details and the price for the selected vehicle. | `/{vehicle_type}/brands/{brand_id}/models/{model_id}/years/{year_id}` |
 
-The supported `vehicle_type` values are:
-
-- `cars`
-- `motorcycles`
-- `trucks`
+The supported `vehicle_type` values are `cars`, `motorcycles`, and `trucks`.
 
 The `get_data()` function centralizes HTTP GET requests, applies a 10-second timeout, checks the response status through `validate_response()`, and returns the response body as JSON.
 
 If a request fails, `main.py` catches the Requests exception and displays an error message to the user.
+
+### Rate Limits
+
+The API limits the number of requests that can be made without an authentication token. If you run many searches in a short period, requests may start failing, and the application will display an error message. Check the API documentation for the current limits and for how to obtain a token.
 
 ## Future Improvements
 
 - Add automated tests for the API functions using **pytest**.
 - Mock HTTP responses to test successful requests and error scenarios without depending on live API calls.
 - Allow users to return to previous selection steps.
+- Handle `Ctrl+C` gracefully with a friendly exit message.
+- Support an optional API token to avoid rate limits.
 - Improve handling of unexpected or invalid API response data.
+
+## License
+
+<!-- Choose a license (for example, MIT) at https://choosealicense.com, add a LICENSE file to the repository, and update this section. -->
+
+No license has been specified yet.
 
 ---
 
