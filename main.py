@@ -33,9 +33,19 @@ Welcome to FIPE Vehicle Lookup!
 
 def search_vehicle():
     vehicle_type = select_type()
+
     brand_id = select_brand(vehicle_type)
+    if brand_id is None:
+        return
+
     model_id = select_model(vehicle_type, brand_id)
+    if model_id is None:
+        return
+
     year_id = select_year(vehicle_type, brand_id, model_id)
+    if year_id is None:
+        return
+
     select_vehicle(vehicle_type, brand_id, model_id, year_id)
 
 
@@ -82,6 +92,10 @@ Select a vehicle type:
 
 def select_brand(vehicle_type):
     brands_data = get_brands(vehicle_type)
+    
+    if not brands_data:
+        print("No brand found for this type.")
+        return
 
     print("""
 ========================================
@@ -107,6 +121,10 @@ Select a vehicle brand:
 def select_model(vehicle_type, brand_id):
     models_data = get_models(vehicle_type, brand_id)
 
+    if not models_data:
+        print("No model found for this brand.")
+        return
+
     print("""
 ========================================
             VEHICLE SEARCH
@@ -130,6 +148,10 @@ Select a vehicle model:
 
 def select_year(vehicle_type, brand_id, model_id):
     years_data = get_years(vehicle_type, brand_id, model_id)
+
+    if not years_data:
+        print("No year found for this model.")
+        return
 
     print("""
 ========================================
