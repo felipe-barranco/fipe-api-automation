@@ -4,16 +4,17 @@ from fipe_api import get_brands, get_models, get_years, get_info
 
 
 def main():
+    print("""
+    ========================================
+              FIPE VEHICLE LOOKUP
+    ========================================
+                    
+    Welcome to FIPE Vehicle Lookup!
+                    
+    1. Search for a vehicle
+    2. Exit""")
+    
     while True:
-        print("""
-========================================
-          FIPE VEHICLE LOOKUP
-========================================
-                
-Welcome to FIPE Vehicle Lookup!
-                
-1. Search for a vehicle
-2. Exit""")
         try:
             user_option = int(input("\nSelect an option: "))
         except ValueError:
